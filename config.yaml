@@ -4,3 +4,6 @@ title: "Tech Debug"
 theme: "anubis"
 paginate: 10
 enableRobotsTXT: true
+
+params:
+  style: auto
