@@ -7,3 +7,8 @@ enableRobotsTXT: true
 
 params:
   style: auto
+  social:
+  - id: github
+    name: lantrix
+  - id: spotify
+    name: lantrix
