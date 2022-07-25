@@ -1,3 +1,6 @@
-baseURL = 'https://techdebug.com/'
-languageCode = 'en-us'
-title = 'Tech Debug'
+languageCode: "en-us"
+baseUrl: "https://techdebug.com/"
+title: "Tech Debug"
+theme: "anubis"
+paginate: 10
+enableRobotsTXT: true
