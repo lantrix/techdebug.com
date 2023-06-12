@@ -1,0 +1,96 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Role for GitHub actions deploy Terraform EC2 based upon https://github.com/marketplace/actions/configure-aws-credentials-for-github-actions
+Parameters:
+  GitHubOrg:
+    Type: String
+    Default: "lantrix"
+  RepositoryName:
+    Type: String
+    Default: "techdebug.com"
+  AWSAccountID:
+    Description: ID for the AWS Account.
+    Type: String
+  HostedZoneID:
+    Description: ID for the R53 Hosted Zone.
+    Type: String
+  OIDCProviderArn:
+    Description: Arn for the GitHub OIDC Provider.
+    Type: String
+  RemoteStateManagedPolicy:
+    Type: String
+    Description: 'ARN of the Terraform State managed policy to add to the role'
+  OIDCAudience:
+    Description: Audience supplied to configure-aws-credentials.
+    Default: "sts.amazonaws.com"
+    Type: String
+
+Conditions:
+  CreateOIDCProvider: !Equals
+    - !Ref OIDCProviderArn
+    - ""
+
+Resources:
+  GhActionsTechdebugRole:
+    Type: AWS::IAM::Role
+    Properties:
+      Description: Role for GitHub actions to deploy Techdebug.com
+      AssumeRolePolicyDocument:
+        Statement:
+          - Effect: Allow
+            Action: sts:AssumeRoleWithWebIdentity
+            Principal:
+              Federated: !If
+                - CreateOIDCProvider
+                - !Ref GithubOidc
+                - !Ref OIDCProviderArn
+            Condition:
+              StringEquals:
+                token.actions.githubusercontent.com:aud: !Ref OIDCAudience
+              StringLike:
+                token.actions.githubusercontent.com:sub: !Sub repo:${GitHubOrg}/${RepositoryName}:*
+      Policies:
+      - PolicyName: R53Manage
+        PolicyDocument:
+          Statement:
+          - Effect: Allow
+            Action:
+            - route53:ListResourceRecordSets
+            - route53:ChangeResourceRecordSets
+            - route53:UpdateHostedZoneComment
+            - route53:ListTagsForResource
+            - route53:ListTagsForResources
+            - route53:ChangeTagsForResource
+            Resource: !Sub arn:aws:route53:::hostedzone/${HostedZoneID}
+          - Effect: Allow
+            Action:
+            - route53:ListHostedZones
+            - route53:GetHostedZone
+            Resource: '*'
+          - Effect: Allow
+            Action:
+            - route53:GetChange
+            Resource: 'arn:aws:route53:::change/*'
+      - PolicyName: TechDebug
+        PolicyDocument:
+          Statement:
+            - Effect: Allow
+              Action:
+                - s3:*
+              Resource:
+                - arn:aws:s3::${AWSAccountID}:bucket/techdebug.com
+      ManagedPolicyArns:
+        - !Ref RemoteStateManagedPolicy
+
+  GithubOidc:
+    Type: AWS::IAM::OIDCProvider
+    Condition: CreateOIDCProvider
+    Properties:
+      Url: https://token.actions.githubusercontent.com
+      ClientIdList:
+        - sts.amazonaws.com
+      ThumbprintList:
+        - 6938fd4d98bab03faadb97b34396831e3780aea1
+
+Outputs:
+  Role:
+    Value: !GetAtt GhActionsTechdebugRole.Arn
