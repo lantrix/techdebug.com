@@ -13,3 +13,11 @@ resource "aws_route53_record" "techdebug_apex" {
   records = ["20.92.21.38"]
   ttl     = 60
 }
+
+resource "aws_route53_record" "techdebug_apex" {
+  zone_id = aws_route53_zone.techdebug_info.zone_id
+  name    = "www"
+  type    = "CNAME"
+  records = ["techdebug.com"]
+  ttl     = 60
+}
