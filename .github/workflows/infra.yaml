@@ -30,7 +30,7 @@ jobs:
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v2
       with:
-        role-to-assume: arn:aws:iam::${AWS_ACCOUNT_ID}:role/github-actions-techdebug-ro-GhActionsTechdebugRole-41WBTDGBFMG1
+        role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/github-actions-techdebug-ro-GhActionsTechdebugRole-41WBTDGBFMG1
         aws-region: ap-southeast-4
 
     - name: Terraform fmt
@@ -49,7 +49,7 @@ jobs:
     - name: Terraform Plan
       id: plan
       if: github.event_name == 'pull_request'
-      run: terraform plan -no-color -var="AWS_ACCOUNT_ID=${AWS_ACCOUNT_ID}"
+      run: terraform plan -no-color -var="AWS_ACCOUNT_ID=${{ secrets.AWS_ACCOUNT_ID }}"
       continue-on-error: true
 
     - name: Update Pull Request
@@ -117,4 +117,4 @@ jobs:
 
     - name: Terraform Apply
       if: github.ref == 'refs/heads/master' && github.event_name == 'push'
-      run: terraform apply -auto-approve -input=false -var="AWS_ACCOUNT_ID=${AWS_ACCOUNT_ID}"
+      run: terraform apply -auto-approve -input=false -var="AWS_ACCOUNT_ID=${{ secrets.AWS_ACCOUNT_ID }}"
