@@ -54,6 +54,8 @@ Resources:
           Statement:
           - Effect: Allow
             Action:
+            - route53:GetHostedZone
+            - route53:DeleteHostedZone
             - route53:ListResourceRecordSets
             - route53:ChangeResourceRecordSets
             - route53:UpdateHostedZoneComment
@@ -63,8 +65,13 @@ Resources:
             Resource: !Sub arn:aws:route53:::hostedzone/${HostedZoneID}
           - Effect: Allow
             Action:
+            - route53:GetChange
+            Resource: 'arn:aws:route53:::change/*'
+          - Effect: Allow
+            Action:
             - route53:ListHostedZones
             - route53:GetHostedZone
+            - route53:CreateHostedZone
             Resource: '*'
           - Effect: Allow
             Action:
@@ -77,7 +84,8 @@ Resources:
               Action:
                 - s3:*
               Resource:
-                - arn:aws:s3::${AWSAccountID}:bucket/techdebug.com
+                - arn:aws:s3:::techdebug.com
+                - arn:aws:s3:::techdebug.com/*
       ManagedPolicyArns:
         - !Ref RemoteStateManagedPolicy
 
