@@ -14,6 +14,8 @@ make deploy-oidc
 ## Deploy Actions Role
 
 Deploy the CFN stack for the IAM role. Parameters are:
+  - AWS Account ID
+  - R53 Hosted Zone
   - ARN for the created OIDC provider.
   - ARN of the Terraform State managed policy
     - The ARN is in the output key `PolicyARN` from the `terraform-state-managed-policy` stack in `ap-southeast-2`

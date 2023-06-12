@@ -33,5 +33,5 @@ deploy: $(workspace)
 		AWSAccountID=$(account) \
 		HostedZoneID=$(zone) \
 		OIDCProviderArn="arn:aws:iam::$(account):oidc-provider/token.actions.githubusercontent.com" \
-		RemoteStateManagedPolicy="arn:aws:iam::$(account):policy/terraform-state-policy"
+		RemoteStateManagedPolicy="arn:aws:iam::$(account):policy/terraform-state-policy" \
 		--no-fail-on-empty-changeset
