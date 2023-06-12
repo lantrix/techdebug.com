@@ -14,7 +14,7 @@ resource "aws_route53_record" "techdebug_apex" {
   ttl     = 60
 }
 
-resource "aws_route53_record" "techdebug_apex" {
+resource "aws_route53_record" "techdebug_apex_cname" {
   zone_id = aws_route53_zone.techdebug_info.zone_id
   name    = "www"
   type    = "CNAME"
