@@ -7,7 +7,6 @@ terraform {
   }
   backend "s3" {
     workspace_key_prefix = "techdebug-com"
-    bucket               = "terraform-state-${var.AWS_ACCOUNT_ID}"
     key                  = "techdebug-com-terraform.tfstate"
     region               = "ap-southeast-2"
     dynamodb_table       = "terraform-state"

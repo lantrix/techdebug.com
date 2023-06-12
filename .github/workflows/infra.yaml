@@ -40,7 +40,7 @@ jobs:
 
     - name: Terraform Init
       id: init
-      run: terraform init
+      run: terraform init -backend-config="bucket=terraform-state-${{ secrets.AWS_ACCOUNT_ID }}"
 
     - name: Terraform Validate
       id: validate
