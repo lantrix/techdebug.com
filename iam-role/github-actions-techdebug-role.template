@@ -65,10 +65,6 @@ Resources:
                 Resource: !Sub arn:aws:route53:::hostedzone/${HostedZoneID}
               - Effect: Allow
                 Action:
-                  - route53:GetChange
-                Resource: "arn:aws:route53:::change/*"
-              - Effect: Allow
-                Action:
                   - route53:ListHostedZones
                   - route53:GetHostedZone
                   - route53:CreateHostedZone
