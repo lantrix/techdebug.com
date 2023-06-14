@@ -32,7 +32,7 @@ resource "aws_route53_record" "techdebug" {
   type    = "A"
   alias {
     name                   = aws_s3_bucket_website_configuration.techdebug-config.website_endpoint
-    zone_id                = aws_s3_bucket_website_configuration.techdebug-config.website_domain
+    zone_id                = aws_s3_bucket.techdebug.hosted_zone_id
     evaluate_target_health = true
   }
 }
