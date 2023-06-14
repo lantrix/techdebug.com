@@ -28,7 +28,7 @@ resource "aws_s3_bucket_policy" "techdebug-policy" {
 
 resource "aws_route53_record" "techdebug" {
   zone_id = data.aws_route53_zone.techdebug.zone_id
-  name    = "dev.techdebug.com"
+  name    = "dev"
   type    = "A"
   alias {
     name                   = aws_s3_bucket_website_configuration.techdebug-config.website_endpoint
