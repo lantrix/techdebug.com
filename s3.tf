@@ -12,7 +12,7 @@ resource "aws_s3_bucket_public_access_block" "techdebug-public" {
 }
 
 resource "aws_s3_bucket_website_configuration" "techdebug-config" {
-  bucket = aws_s3_bucket.techdebug.bucket
+  bucket = aws_s3_bucket.techdebug.id
   index_document {
     suffix = "index.html"
   }
