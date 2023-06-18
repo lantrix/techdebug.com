@@ -49,6 +49,46 @@ Resources:
               StringLike:
                 token.actions.githubusercontent.com:sub: !Sub repo:${GitHubOrg}/${RepositoryName}:*
       Policies:
+        - PolicyName: ACM
+          PolicyDocument:
+            Statement:
+              - Effect: Allow
+                Action:
+                  - acm:*
+                Resource: "*"
+              - Effect: Allow
+                Action: iam:CreateServiceLinkedRole
+                Resource: arn:aws:iam::*:role/aws-service-role/acm.amazonaws.com/AWSServiceRoleForCertificateManager*
+                Condition:
+                  StringEquals:
+                    iam:AWSServiceName: acm.amazonaws.com
+              - Effect: Allow
+                Action:
+                  - iam:DeleteServiceLinkedRole
+                  - iam:GetServiceLinkedRoleDeletionStatus
+                  - iam:GetRole
+                Resource: arn:aws:iam::*:role/aws-service-role/acm.amazonaws.com/AWSServiceRoleForCertificateManager*
+        - PolicyName: Cloudfront
+          PolicyDocument:
+            Statement:
+              - Action:
+                  - cloudfront:*
+                  - iam:ListServerCertificates
+                  - waf:ListWebACLs
+                  - waf:GetWebACL
+                  - wafv2:ListWebACLs
+                  - wafv2:GetWebACL
+                  - kinesis:ListStreams
+                Effect: Allow
+                Resource: "*"
+              - Action:
+                  - kinesis:DescribeStream
+                Effect: Allow
+                Resource: arn:aws:kinesis:*:*:*
+              - Action:
+                  - iam:ListRoles
+                Effect: Allow
+                Resource: arn:aws:iam::*:*
         - PolicyName: R53Manage
           PolicyDocument:
             Statement:
@@ -62,7 +102,7 @@ Resources:
                   - route53:ListTagsForResource
                   - route53:ListTagsForResources
                   - route53:ChangeTagsForResource
-                Resource: !Sub arn:aws:route53:::hostedzone/${HostedZoneID}
+                Resource: !Sub arn:aws:route53:::hostedzone/*
               - Effect: Allow
                 Action:
                   - route53:ListHostedZones
