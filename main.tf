@@ -39,7 +39,11 @@ module "acm" {
   region = var.acm-region
   domain = var.domain
 }
+module "dns" {
+  source          = "./modules/services/dns"
+}
 module "s3" {
+  depends_on = [module.dns]
   source          = "./modules/services/s3"
   region          = var.region
   bucketName      = var.bucketName
