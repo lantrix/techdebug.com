@@ -27,21 +27,6 @@ data "aws_iam_policy_document" "read-s3-bucket" {
       identifiers = [aws_cloudfront_origin_access_identity.techdebug.iam_arn]
     }
   }
-
-  statement {
-    actions = [
-      "s3:PutObject",
-      "s3:PutObjectAcl",
-      "s3:GetObject",
-      "s3:GetObjectAcl"
-    ]
-    resources = ["arn:aws:s3:::${var.bucketName}/*"]
-
-    principals {
-      type        = "AWS"
-      identifiers = [aws_iam_user.s3uploader.arn]
-    }
-  }
 }
 
 # Bucket and associated bits
@@ -150,13 +135,4 @@ resource "aws_route53_record" "techdebug" {
   type    = "CNAME"
   ttl     = 5
   records = [aws_cloudfront_distribution.techdebug-com.domain_name]
-}
-
-# Outputs
-output "access_key_id" {
-  value = aws_iam_access_key.s3uploader.id
-}
-
-output "secret_access_key" {
-  value = aws_iam_access_key.s3uploader.encrypted_secret
 }
