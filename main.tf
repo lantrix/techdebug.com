@@ -31,16 +31,17 @@ provider "aws" {
     }
   }
 }
+module "dns" {
+  source          = "./modules/services/dns"
+}
 module "acm" {
+  depends_on = [module.dns]
   providers = {
     aws = aws.useast1
   }
   source = "./modules/services/acm"
   region = var.acm-region
   domain = var.domain
-}
-module "dns" {
-  source          = "./modules/services/dns"
 }
 module "s3" {
   depends_on = [module.dns]
