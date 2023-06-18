@@ -103,7 +103,9 @@ Resources:
                   - s3:DeleteBucket
                   - s3:GetBucketPublicAccessBlock
                   - s3:PutBucketPublicAccessBlock
-                Resource: arn:aws:s3:::techdebug.com
+                Resource:
+                  - arn:aws:s3:::techdebug.com
+                  - arn:aws:s3:::techdebug.com-logs
               - Effect: Allow
                 Action:
                   - s3:PutObject
@@ -111,7 +113,9 @@ Resources:
                   - s3:GetObject
                   - s3:GetObjectAcl
                   - s3:DeleteObject
-                Resource: arn:aws:s3:::techdebug.com/*
+                Resource:
+                  - arn:aws:s3:::techdebug.com/*
+                  - arn:aws:s3:::techdebug.com-logs/*
       ManagedPolicyArns:
         - !Ref RemoteStateManagedPolicy
 
