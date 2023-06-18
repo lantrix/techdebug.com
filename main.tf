@@ -14,10 +14,35 @@ terraform {
 }
 
 provider "aws" {
-  region = "ap-southeast-4"
+  region = var.region
   default_tags {
     tags = {
       source = "https://github.com/lantrix/techdebug.com"
     }
   }
+}
+# Second provider to deploy ACM in a different region
+provider "aws" {
+  alias  = "useast1"
+  region = var.acm-region
+  default_tags {
+    tags = {
+      source = "https://github.com/lantrix/techdebug.com"
+    }
+  }
+}
+module "acm" {
+  providers = {
+    aws = aws.useast1
+  }
+  source = "./modules/services/acm"
+  region = var.acm-region
+  domain = var.domain
+}
+module "s3" {
+  source          = "./modules/services/s3"
+  region          = var.region
+  bucketName      = var.bucketName
+  domain          = var.domain
+  acm_certificate = module.acm.certificate-arn
 }

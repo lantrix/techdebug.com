@@ -1,8 +1,8 @@
 variable "region" {
   default = "ap-southeast-4"
 }
-variable "AWS_ACCOUNT_ID" {
-  type = string
+variable "acm-region" {
+  default = "us-east-1"
 }
 variable "domain" {
   default = "techdebug.com"
