@@ -42,6 +42,7 @@ resource "aws_s3_bucket" "log_bucket" {
   bucket = "${var.bucketName}-logs"
 }
 resource "aws_s3_bucket_acl" "log_bucket_acl" {
+  depends_on = [aws_s3_bucket_ownership_controls.techdebug-logs]
   bucket = aws_s3_bucket.log_bucket.id
   acl    = "log-delivery-write"
 }
@@ -71,7 +72,13 @@ resource "aws_s3_bucket_ownership_controls" "techdebug" {
     object_ownership = "BucketOwnerPreferred"
   }
 }
+resource "aws_s3_bucket_ownership_controls" "techdebug-logs" {
+  bucket = aws_s3_bucket.log_bucket.id
 
+  rule {
+    object_ownership = "BucketOwnerPreferred"
+  }
+}
 # Cloudfront to serve bucket content over HTTPS
 resource "aws_cloudfront_origin_access_identity" "techdebug" {
   comment = "techdebug static site"
