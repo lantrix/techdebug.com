@@ -9,7 +9,7 @@ data "aws_route53_zone" "techdebug" {
 }
 data "aws_iam_policy_document" "read-s3-bucket" {
   statement {
-    actions   = ["s3:GetObject"]
+    actions   = ["s3:GetObject","s3:GetObjectAcl"]
     resources = ["${aws_s3_bucket.techdebug.arn}/*"]
 
     principals {
@@ -19,7 +19,7 @@ data "aws_iam_policy_document" "read-s3-bucket" {
   }
 
   statement {
-    actions   = ["s3:ListBucket"]
+    actions   = ["s3:ListBucket","s3:GetBucketAcl"]
     resources = [aws_s3_bucket.techdebug.arn]
 
     principals {

@@ -102,7 +102,7 @@ Resources:
                   - route53:ListTagsForResource
                   - route53:ListTagsForResources
                   - route53:ChangeTagsForResource
-                Resource: !Sub arn:aws:route53:::hostedzone/*
+                Resource: !Sub arn:aws:route53:::hostedzone/${HostedZoneID}
               - Effect: Allow
                 Action:
                   - route53:ListHostedZones
@@ -143,6 +143,10 @@ Resources:
                   - s3:DeleteBucket
                   - s3:GetBucketPublicAccessBlock
                   - s3:PutBucketPublicAccessBlock
+                  - s3:GetBucketLogging
+                  - s3:PutBucketLogging
+                  - s3:PutBucketOwnershipControls
+                  - s3:GetBucketOwnershipControls
                 Resource:
                   - arn:aws:s3:::techdebug.com
                   - arn:aws:s3:::techdebug.com-logs
