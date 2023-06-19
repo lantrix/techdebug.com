@@ -9,7 +9,7 @@ data "aws_route53_zone" "techdebug" {
 }
 data "aws_iam_policy_document" "read-s3-bucket" {
   statement {
-    actions   = ["s3:GetObject","s3:GetObjectAcl"]
+    actions   = ["s3:GetObject", "s3:GetObjectAcl"]
     resources = ["${aws_s3_bucket.techdebug.arn}/*"]
 
     principals {
@@ -19,7 +19,7 @@ data "aws_iam_policy_document" "read-s3-bucket" {
   }
 
   statement {
-    actions   = ["s3:ListBucket","s3:GetBucketAcl"]
+    actions   = ["s3:ListBucket", "s3:GetBucketAcl"]
     resources = [aws_s3_bucket.techdebug.arn]
 
     principals {
@@ -43,8 +43,8 @@ resource "aws_s3_bucket" "log_bucket" {
 }
 resource "aws_s3_bucket_acl" "log_bucket_acl" {
   depends_on = [aws_s3_bucket_ownership_controls.techdebug-logs]
-  bucket = aws_s3_bucket.log_bucket.id
-  acl    = "log-delivery-write"
+  bucket     = aws_s3_bucket.log_bucket.id
+  acl        = "log-delivery-write"
 }
 resource "aws_s3_bucket_logging" "techdebug" {
   bucket = aws_s3_bucket.techdebug.id
@@ -115,7 +115,7 @@ resource "aws_cloudfront_distribution" "techdebug-com" {
   }
   origin {
     domain_name = aws_s3_bucket.techdebug.bucket_regional_domain_name
-    origin_id   = aws_s3_bucket.techdebug.bucket
+    origin_id   = "dev.techdebug.com" # Will change back to aws_s3_bucket.techdebug.bucket in Prod
 
     s3_origin_config {
       origin_access_identity = aws_cloudfront_origin_access_identity.techdebug.cloudfront_access_identity_path

@@ -32,7 +32,7 @@ provider "aws" {
   }
 }
 module "dns" {
-  source          = "./modules/services/dns"
+  source = "./modules/services/dns"
 }
 module "acm" {
   depends_on = [module.dns]
@@ -44,7 +44,7 @@ module "acm" {
   domain = var.domain
 }
 module "s3" {
-  depends_on = [module.dns]
+  depends_on      = [module.dns]
   source          = "./modules/services/s3"
   region          = var.region
   bucketName      = var.bucketName
