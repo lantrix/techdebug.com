@@ -12,7 +12,7 @@ terraform {
   }
 }
 data "aws_route53_zone" "techdebug" {
-  name = "${var.domain}."
+  name = "techdebug.com."
 }
 
 resource "aws_acm_certificate" "cloudfront" {
