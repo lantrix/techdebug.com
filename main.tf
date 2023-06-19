@@ -48,6 +48,5 @@ module "s3" {
   source          = "./modules/services/s3"
   region          = var.region
   bucketName      = var.bucketName
-  domain          = var.domain
   acm_certificate = module.acm.certificate-arn
 }

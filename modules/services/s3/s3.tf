@@ -1,6 +1,5 @@
 variable "region" {}
 variable "bucketName" {}
-variable "domain" {}
 variable "acm_certificate" {}
 
 data "aws_caller_identity" "current" {}
@@ -115,7 +114,7 @@ resource "aws_cloudfront_distribution" "techdebug-com" {
   }
   origin {
     domain_name = aws_s3_bucket.techdebug.bucket_regional_domain_name
-    origin_id   = "dev.techdebug.com" # Will change back to aws_s3_bucket.techdebug.bucket in Prod
+    origin_id   = aws_s3_bucket.techdebug.bucket
 
     s3_origin_config {
       origin_access_identity = aws_cloudfront_origin_access_identity.techdebug.cloudfront_access_identity_path
