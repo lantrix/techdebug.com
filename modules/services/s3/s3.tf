@@ -1,14 +1,12 @@
 variable "region" {}
 variable "bucketName" {}
 variable "acm_certificate" {}
+variable "zone_id" {}
 
 data "aws_caller_identity" "current" {}
-data "aws_route53_zone" "techdebug" {
-  name = "techdebug.com."
-}
 data "aws_iam_policy_document" "read-s3-bucket" {
   statement {
-    actions   = ["s3:GetObject", "s3:GetObjectAcl"]
+    actions   = ["s3:GetObject"]
     resources = ["${aws_s3_bucket.techdebug.arn}/*"]
 
     principals {
@@ -135,10 +133,13 @@ resource "aws_cloudfront_distribution" "techdebug-com" {
 }
 
 # DNS for cloudfront
-resource "aws_route53_record" "techdebug" {
-  zone_id = data.aws_route53_zone.techdebug.zone_id
-  name    = "dev"
-  type    = "CNAME"
-  ttl     = 5
-  records = [aws_cloudfront_distribution.techdebug-com.domain_name]
+resource "aws_route53_record" "techdebug-apex" {
+  zone_id = var.zone_id
+  name    = "techdebug.com"
+  type    = "A"
+  alias {
+    name                   = aws_cloudfront_distribution.techdebug-com.domain_name
+    zone_id                = aws_cloudfront_distribution.techdebug-com.hosted_zone_id
+    evaluate_target_health = false
+  }
 }

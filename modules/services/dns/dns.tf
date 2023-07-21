@@ -6,14 +6,6 @@ resource "aws_route53_zone" "techdebug_info" {
   }
 }
 
-resource "aws_route53_record" "techdebug_apex" {
-  zone_id = aws_route53_zone.techdebug_info.zone_id
-  name    = "techdebug.com."
-  type    = "A"
-  records = ["20.92.21.38"]
-  ttl     = 60
-}
-
 resource "aws_route53_record" "techdebug_apex_cname" {
   zone_id = aws_route53_zone.techdebug_info.zone_id
   name    = "www"

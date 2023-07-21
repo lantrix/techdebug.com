@@ -49,4 +49,5 @@ module "s3" {
   region          = var.region
   bucketName      = var.bucketName
   acm_certificate = module.acm.certificate-arn
+  zone_id         = module.dns.zone-id
 }
