@@ -150,8 +150,8 @@ Resources:
                 Resource:
                   - arn:aws:s3:::techdebug.com
                   - arn:aws:s3:::techdebug.com-logs
-                  - arn:aws:s3:::dev.techdebug.com
-                  - arn:aws:s3:::dev.techdebug.com-logs
+                  - arn:aws:s3:::techdebug.com
+                  - arn:aws:s3:::techdebug.com-logs
               - Effect: Allow
                 Action:
                   - s3:PutObject
@@ -162,8 +162,8 @@ Resources:
                 Resource:
                   - arn:aws:s3:::techdebug.com/*
                   - arn:aws:s3:::techdebug.com-logs/*
-                  - arn:aws:s3:::dev.techdebug.com/*
-                  - arn:aws:s3:::dev.techdebug.com-logs/*
+                  - arn:aws:s3:::techdebug.com/*
+                  - arn:aws:s3:::techdebug.com-logs/*
       ManagedPolicyArns:
         - !Ref RemoteStateManagedPolicy
 

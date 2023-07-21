@@ -5,10 +5,10 @@ variable "acm-region" {
   default = "us-east-1"
 }
 variable "domain" {
-  default = "dev.techdebug.com"
+  default = "techdebug.com"
   type    = string
 }
 variable "bucketName" {
-  default = "dev.techdebug.com"
+  default = "techdebug.com"
   type    = string
 }
