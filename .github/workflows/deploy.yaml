@@ -12,9 +12,11 @@ env:
   AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
 
 jobs:
-  dns-terraform:
+  infra-terraform:
     name: Deploy Infra
     runs-on: ubuntu-latest
+    outputs:
+      cloudfronid: ${{ steps.terraform-output.outputs.id }}
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
     permissions:
       id-token: write
@@ -23,6 +25,8 @@ jobs:
       pull-requests: write
     steps:
       - uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_wrapper: false
 
       - name: Checkout
         uses: actions/checkout@v3.5.2
@@ -118,11 +122,17 @@ jobs:
       - name: Terraform Apply
         if: github.ref == 'refs/heads/master' && github.event_name == 'push'
         run: terraform apply -auto-approve -input=false
+
+      - name: Get Distro ID
+        id: terraform-output
+        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+        run: echo "id=$(terraform output cloudfront-id)" >> "$GITHUB_OUTPUT"
+
   hugo:
     name: Deploy Site
     runs-on: ubuntu-latest
     needs:
-      - dns-terraform
+      - infra-terraform
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
     permissions:
       id-token: write
@@ -150,10 +160,12 @@ jobs:
 
       - name: Build
         run: hugo --minify
+        env:
+          HUGO_PARAMS_CLOUDFRONTID: ${{needs.infra-terraform.outputs.cloudfrontid}}
 
-      # - name: Deploy
-      #   uses: peaceiris/actions-gh-pages@v3
-      #   if: github.ref == 'refs/heads/master'
-      #   with:
-      #     github_token: ${{ secrets.GITHUB_TOKEN }}
-      #     publish_dir: ./public
+      - name: Deploy site
+        uses: plopcas/hugo-s3-action@v1.4.1
+        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+        env:
+          MINIFY: "true"
+          HUGO_PARAMS_CLOUDFRONTID: ${{needs.infra-terraform.outputs.cloudfrontid}}

@@ -6,9 +6,31 @@ paginate: 10
 enableRobotsTXT: true
 
 params:
+  CloudfrontId: foobar
   style: auto
   social:
-  - id: github
-    name: lantrix
-  - id: spotify
-    name: lantrix
+    - id: github
+      name: lantrix
+    - id: spotify
+      name: lantrix
+
+deployment:
+  order:
+    - .jpg$
+    - .gif$
+  targets:
+    - name: techdebug
+      URL: s3://techdebug.com
+      cloudFrontDistributionID: { { $.Site.Params.CloudfrontId } }
+  matchers:
+    - pattern: ^.+\.(js|css|svg|ttf)$
+      cacheControl: max-age=31536000, no-transform, public
+      gzip: true
+    - pattern: ^.+\.(png|jpg)$
+      cacheControl: max-age=31536000, no-transform, public
+      gzip: false
+    - pattern: ^sitemap\.xml$
+      contentType: application/xml
+      gzip: true
+    - pattern: ^.+\.(html|xml|json)$
+      gzip: true

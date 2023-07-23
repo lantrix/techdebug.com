@@ -51,3 +51,7 @@ module "s3" {
   acm_certificate = module.acm.certificate-arn
   zone_id         = module.dns.zone-id
 }
+
+output "cloudfront-id" {
+  value = s3.cloudfront-id
+}

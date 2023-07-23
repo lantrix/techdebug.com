@@ -28,4 +28,4 @@ terraform init \
 
 ## GitHub Secrets
 
-AWS Account IF must be published in GitHub secret `AWS_ACCOUNT_ID`
+AWS Account ID must be published in GitHub secret `AWS_ACCOUNT_ID`
