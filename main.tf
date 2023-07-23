@@ -53,5 +53,5 @@ module "s3" {
 }
 
 output "cloudfront-id" {
-  value = s3.cloudfront-id
+  value = module.s3.cloudfront-id
 }
