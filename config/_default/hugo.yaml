@@ -21,7 +21,7 @@ deployment:
   targets:
     - name: techdebug
       URL: s3://techdebug.com
-      cloudFrontDistributionID: { { $.Site.Params.CloudfrontId } }
+      cloudFrontDistributionID: "{{ $.Site.Params.CloudfrontId }}"
   matchers:
     - pattern: ^.+\.(js|css|svg|ttf)$
       cacheControl: max-age=31536000, no-transform, public
