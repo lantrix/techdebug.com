@@ -89,6 +89,29 @@ Resources:
                   - iam:ListRoles
                 Effect: Allow
                 Resource: arn:aws:iam::*:*
+              - Sid: Invalidations
+                Effect: Allow
+                Action:
+                  - acm:ListCertificates
+                  - cloudfront:GetDistribution
+                  - cloudfront:GetStreamingDistribution
+                  - cloudfront:GetDistributionConfig
+                  - cloudfront:ListDistributions
+                  - cloudfront:ListCloudFrontOriginAccessIdentities
+                  - cloudfront:CreateInvalidation
+                  - cloudfront:GetInvalidation
+                  - cloudfront:ListInvalidations
+                  - elasticloadbalancing:DescribeLoadBalancers
+                  - iam:ListServerCertificates
+                  - sns:ListSubscriptionsByTopic
+                  - sns:ListTopics
+                  - waf:GetWebACL
+                  - waf:ListWebACLs
+                Resource: "*"
+              - Effect: Allow
+                Action:
+                  - s3:ListAllMyBuckets
+                Resource: arn:aws:s3:::*
         - PolicyName: R53Manage
           PolicyDocument:
             Statement:
