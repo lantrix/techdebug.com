@@ -14,6 +14,10 @@ params:
     - id: spotify
       name: lantrix
 
+taxonomies:
+  category: categories
+  tag: tags
+
 permalinks:
   term:
     tags: /tag/:slug/
