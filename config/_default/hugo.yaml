@@ -17,6 +17,7 @@ params:
 permalinks:
   term:
     tags: /tag/:slug/
+    categories: /blog/category/:slug/
 
 deployment:
   order:
