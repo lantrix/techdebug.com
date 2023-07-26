@@ -16,7 +16,7 @@ jobs:
     name: Deploy Infra
     runs-on: ubuntu-latest
     outputs:
-      cloudfronid: ${{ steps.terraform-output.outputs.id }}
+      cloudfrontid: ${{ steps.terraform-output.outputs.id }}
     # These permissions are needed to interact with GitHub's OIDC Token endpoint.
     permissions:
       id-token: write
