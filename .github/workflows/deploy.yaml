@@ -126,7 +126,7 @@ jobs:
       - name: Get Distro ID
         id: terraform-output
         if: github.ref == 'refs/heads/master' && github.event_name == 'push'
-        run: echo "id=$(terraform output cloudfront-id)" >> "$GITHUB_OUTPUT"
+        run: echo "id=$(terraform output -raw cloudfront-id)" >> "$GITHUB_OUTPUT"
 
   hugo:
     name: Deploy Site
