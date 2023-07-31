@@ -8,10 +8,6 @@ ifndef account
 $(error account is not set)
 endif
 
-ifndef zone
-$(error zone is not set)
-endif
-
 .PHONY: deploy-oidc
 deploy-policy: $(workspace)
 	@echo "\n$(ok_color)====> Deploying GitHub OIDC stack$(no_color)"
@@ -31,7 +27,6 @@ deploy: $(workspace)
 		--region $(stack_region) \
 		--parameter-overrides \
 		AWSAccountID=$(account) \
-		HostedZoneID=$(zone) \
 		OIDCProviderArn="arn:aws:iam::$(account):oidc-provider/token.actions.githubusercontent.com" \
 		RemoteStateManagedPolicy="arn:aws:iam::$(account):policy/terraform-state-policy" \
 		--no-fail-on-empty-changeset
