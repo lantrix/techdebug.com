@@ -1,5 +1,5 @@
 variable "region" {
-  default = "ap-southeast-4"
+  default = "ap-southeast-2"
 }
 variable "acm-region" {
   default = "us-east-1"

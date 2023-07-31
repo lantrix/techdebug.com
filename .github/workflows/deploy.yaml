@@ -35,7 +35,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v2
         with:
           role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/github-actions-techdebug-ro-GhActionsTechdebugRole-41WBTDGBFMG1
-          aws-region: ap-southeast-4
+          aws-region: ap-southeast-2
 
       - name: Terraform fmt
         id: fmt
@@ -151,7 +151,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v2
         with:
           role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/github-actions-techdebug-ro-GhActionsTechdebugRole-41WBTDGBFMG1
-          aws-region: ap-southeast-4
+          aws-region: ap-southeast-2
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
