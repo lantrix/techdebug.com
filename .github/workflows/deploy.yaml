@@ -163,6 +163,11 @@ jobs:
         env:
           HUGO_PARAMS_CLOUDFRONTID: ${{needs.infra-terraform.outputs.cloudfrontid}}
 
+      - name: ID
+        run: echo "HUGO_PARAMS_CLOUDFRONTID is ${HUGO_PARAMS_CLOUDFRONTID}"
+        env:
+          HUGO_PARAMS_CLOUDFRONTID: ${{needs.infra-terraform.outputs.cloudfrontid}}
+
       - name: Deploy site
         uses: plopcas/hugo-s3-action@v1.4.1
         if: github.ref == 'refs/heads/master' && github.event_name == 'push'
