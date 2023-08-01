@@ -10,13 +10,18 @@ data "aws_iam_policy_document" "read-s3-bucket" {
     resources = ["${aws_s3_bucket.techdebug.arn}/*"]
 
     principals {
-        type        = "Service"
-        identifiers = ["cloudfront.amazonaws.com"]
+      type        = "AWS"
+      identifiers = [aws_cloudfront_origin_access_identity.techdebug.iam_arn]
     }
-    condition {
-        test     = "StringEquals"
-        variable = "AWS:SourceArn"
-        values   = [aws_cloudfront_distribution.techdebug-com.arn]
+  }
+
+  statement {
+    actions   = ["s3:ListBucket"]
+    resources = [aws_s3_bucket.techdebug.arn]
+
+    principals {
+      type        = "AWS"
+      identifiers = [aws_cloudfront_origin_access_identity.techdebug.iam_arn]
     }
   }
 }
@@ -72,12 +77,8 @@ resource "aws_s3_bucket_ownership_controls" "techdebug-logs" {
   }
 }
 # Cloudfront to serve bucket content over HTTPS
-resource "aws_cloudfront_origin_access_control" "oac" {
-	name                              = "techdebug"
-	description                       = ""
-	origin_access_control_origin_type = "s3"
-	signing_behavior                  = "always"
-	signing_protocol                  = "sigv4"
+resource "aws_cloudfront_origin_access_identity" "techdebug" {
+  comment = "techdebug"
 }
 
 resource "aws_cloudfront_distribution" "techdebug-com" {
@@ -111,10 +112,14 @@ resource "aws_cloudfront_distribution" "techdebug-com" {
     response_page_path = "/404.html"
   }
   origin {
-    domain_name              = aws_s3_bucket.techdebug.bucket_regional_domain_name
-    origin_id                = aws_s3_bucket.techdebug.bucket
-    origin_access_control_id = aws_cloudfront_origin_access_control.oac.id
+    domain_name = aws_s3_bucket.techdebug.bucket_regional_domain_name
+    origin_id   = aws_s3_bucket.techdebug.bucket
+
+    s3_origin_config {
+      origin_access_identity = aws_cloudfront_origin_access_identity.techdebug.cloudfront_access_identity_path
+    }
   }
+
   restrictions {
     geo_restriction {
       restriction_type = "none"
