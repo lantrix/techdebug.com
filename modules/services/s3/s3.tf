@@ -115,6 +115,13 @@ resource "aws_cloudfront_distribution" "techdebug-com" {
       event_type   = "viewer-request"
       function_arn = aws_cloudfront_function.redirect-index-request.arn
     }
+    forwarded_values {
+      query_string = false
+
+      cookies {
+        forward = "none"
+      }
+    }
   }
   price_class = "PriceClass_All"
   custom_error_response {
