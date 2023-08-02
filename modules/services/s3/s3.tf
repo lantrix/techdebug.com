@@ -86,6 +86,11 @@ resource "aws_cloudfront_distribution" "techdebug-com" {
   default_root_object = "index.html"
   aliases             = [aws_s3_bucket.techdebug.bucket]
 
+  function_association {
+    event_type   = "viewer-request"
+    function_arn = aws_cloudfront_function.redirect-index-request.arn
+  }
+
   default_cache_behavior {
     allowed_methods        = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
     cached_methods         = ["GET", "HEAD"]
@@ -131,6 +136,14 @@ resource "aws_cloudfront_distribution" "techdebug-com" {
     ssl_support_method       = "sni-only"
     minimum_protocol_version = "TLSv1.2_2018"
   }
+}
+
+resource "aws_cloudfront_function" "redirect-index-request" {
+  name    = "redirect-index-request"
+  runtime = "cloudfront-js-1.0"
+  comment = "Blog index redirects"
+  publish = true
+  code    = file("${path.module}/index-function.js")
 }
 
 # DNS for cloudfront
