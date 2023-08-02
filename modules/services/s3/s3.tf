@@ -85,12 +85,6 @@ resource "aws_cloudfront_distribution" "techdebug-com" {
   enabled             = true
   default_root_object = "index.html"
   aliases             = [aws_s3_bucket.techdebug.bucket]
-  ordered_cache_behavior {
-    function_association {
-      event_type   = "viewer-request"
-      function_arn = aws_cloudfront_function.redirect-index-request.arn
-    }
-  }
   default_cache_behavior {
     allowed_methods        = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
     cached_methods         = ["GET", "HEAD"]
@@ -108,6 +102,18 @@ resource "aws_cloudfront_distribution" "techdebug-com" {
       cookies {
         forward = "none"
       }
+    }
+  }
+  ordered_cache_behavior {
+    path_pattern           = "/*"
+    allowed_methods        = ["GET", "HEAD", "OPTIONS"]
+    cached_methods         = ["GET", "HEAD", "OPTIONS"]
+    viewer_protocol_policy = "https-only"
+    target_origin_id       = aws_s3_bucket.techdebug.bucket
+    compress               = true
+    function_association {
+      event_type   = "viewer-request"
+      function_arn = aws_cloudfront_function.redirect-index-request.arn
     }
   }
   price_class = "PriceClass_All"
