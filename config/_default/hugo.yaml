@@ -19,6 +19,9 @@ taxonomies:
   tag: tags
 
 permalinks:
+  posts: "/blog/:year/:month/:slug/"
+  archm: "/blog/:year/:month/"
+  archy: "/blog/:year/"
   term:
     tags: /tag/:slug/
     categories: /blog/category/:slug/
