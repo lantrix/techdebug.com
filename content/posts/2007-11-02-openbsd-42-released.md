@@ -21,12 +21,11 @@ The official OpenBSD announcement states:
 
 > We are pleased to announce the official release of OpenBSD 4.2. We remain proud of OpenBSD&#8217;s record of more than ten years with only two remote holes in the default install. We dedicate this release to the memory of long-time developer Jun-ichiro &#8220;itojun&#8221; Itoh Hagino, who focused his life on IPv6 deployment for everyone.
 
-So get to it people, [buy a CD and support the project][1]. While you are waiting for your CD to arrive, you can [get the release off the mirrors][2].  
+So get to it people, [buy a CD and support the project][1]. While you are waiting for your CD to arrive, you can [get the release off the mirrors][2].
 I use this OS exclusively for all my servers, firewalls, www, db, dns and it is the quickest to set-up, easiest to administrate (great doco) and the most secure by default of any of the UNIX like operating systems out there.
 
-[read more][3] | [digg story][4]
+[read more][3]
 
- [1]: http://openbsd.org/items.html#42
+ [1]: http://www.openbsd.org/42.html
  [2]: http://openbsd.org/ftp.html
  [3]: http://marc.info/?l=openbsd-misc&m=119388876209736&w=2
- [4]: http://digg.com/tech_news/Most_secure_OS_OpenBSD_4_2_released
