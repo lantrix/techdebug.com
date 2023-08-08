@@ -6,7 +6,6 @@ paginate: 10
 enableRobotsTXT: true
 
 params:
-  cloudfrontId: foobar
   style: auto
   social:
     - id: github
@@ -33,7 +32,7 @@ deployment:
   targets:
     - name: techdebug
       URL: s3://techdebug.com
-      cloudFrontDistributionID: "{{ $.Site.Params.cloudfrontId }}"
+      cloudFrontDistributionID: "E3E57L5CF7GMX4"
   matchers:
     - pattern: ^.+\.(js|css|svg|ttf)$
       cacheControl: max-age=31536000, no-transform, public

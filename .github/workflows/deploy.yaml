@@ -127,8 +127,6 @@ jobs:
         id: terraform-output
         if: github.ref == 'refs/heads/master' && github.event_name == 'push'
         run: echo "id=$(terraform output -raw cloudfront-id)" >> "$GITHUB_OUTPUT"
-        env:
-          ACTIONS_STEP_DEBUG: true
 
   hugo:
     name: Deploy Site
@@ -162,18 +160,9 @@ jobs:
 
       - name: Build
         run: hugo --minify
-        env:
-          HUGO_PARAMS_cloudfrontId: ${{needs.infra-terraform.outputs.cloudfrontid}}
-
-      - name: ID
-        run: echo "HUGO_PARAMS_cloudfrontId is ${HUGO_PARAMS_cloudfrontId}"
-        env:
-          HUGO_PARAMS_cloudfrontId: ${{needs.infra-terraform.outputs.cloudfrontid}}
 
       - name: Deploy site
         uses: plopcas/hugo-s3-action@v1.4.1
         if: github.ref == 'refs/heads/master' && github.event_name == 'push'
         env:
           MINIFY: "true"
-          HUGO_PARAMS_cloudfrontId: ${{needs.infra-terraform.outputs.cloudfrontid}}
-          ACTIONS_STEP_DEBUG: true
