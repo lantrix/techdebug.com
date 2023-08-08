@@ -32,11 +32,12 @@ AWS Account ID must be published in GitHub secret `AWS_ACCOUNT_ID`
 
 # Hugo Blog
 
-Serve with `hugo serve`
-
+Ensure Hugo [is installed](https://gohugo.io)
 Regen archive pages with:
 
 ```
 pnpm install
 pnpm generate-archives
 ```
+
+Serve with `pnpm serve`
