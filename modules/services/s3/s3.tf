@@ -108,7 +108,7 @@ resource "aws_cloudfront_distribution" "techdebug-com" {
     path_pattern           = "/*"
     allowed_methods        = ["GET", "HEAD", "OPTIONS"]
     cached_methods         = ["GET", "HEAD", "OPTIONS"]
-    viewer_protocol_policy = "https-only"
+    viewer_protocol_policy = "redirect-to-https"
     target_origin_id       = aws_s3_bucket.techdebug.bucket
     compress               = true
     function_association {
