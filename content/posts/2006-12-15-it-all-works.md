@@ -8,6 +8,6 @@ categories:
   - Uncategorized
 
 ---
-Looks like I&#8217;m some sort of techie as I managed to get my DB and Blog all online ok&#8230;. Look out world. Aaahh. Yes I had to dabble with mySQL to get this beast online. I&#8217;ll stick to [PostgreSQL][1] for all my real DB work.
+Looks like I&#8217;m some sort of techie as I managed to get my DB and Blog all online ok&#8230;. Look out world. Aaahh. Yes I had to dabble with mySQL to get this beast online. I&#8217;ll stick to [PostgreSQL][1] for all my real DB work. All cool.
 
  [1]: http://www.postgresql.org/
