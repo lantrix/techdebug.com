@@ -162,7 +162,7 @@ jobs:
         run: hugo --minify
 
       - name: Deploy site
-        uses: plopcas/hugo-s3-action@v1.4.1
+        uses: plopcas/hugo-s3-action@v1.4.2
         if: github.ref == 'refs/heads/master' && github.event_name == 'push'
         env:
           MINIFY: "true"
