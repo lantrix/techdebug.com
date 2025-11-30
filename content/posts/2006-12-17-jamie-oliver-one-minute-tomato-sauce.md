@@ -14,4 +14,4 @@ categories:
 
 I tried the one minute tomato sauce for dinner tonight, and it was a hit. Cook some orrechiete, put the sauce over it on a plate and sprinkle with your favorite cheese. Dinner in under 10 minutes.
 
- [1]: http://www.jamieoliver.com/podcast/2006/10/11/talking_italian_part_two
+ [1]: https://web.archive.org/web/20061108224912/http://www.jamieoliver.com/podcast/2006/10/11/talking_italian_part_two
