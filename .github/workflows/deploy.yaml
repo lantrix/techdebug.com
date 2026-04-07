@@ -54,7 +54,7 @@ jobs:
       - name: Terraform Plan
         id: plan
         if: github.event_name == 'pull_request'
-        run: terraform plan -no-color"
+        run: terraform plan -no-color
         continue-on-error: true
 
       - name: Update Pull Request
@@ -159,11 +159,11 @@ jobs:
         with:
           hugo-version: "0.117.0"
 
-      - name: Build
+      # plopcas/hugo-s3-action runs Hugo inside an old Docker image whose glibc is too old for current Hugo binaries.
+      - name: Build site (PR / manual)
+        if: github.event_name != 'push' || github.ref != 'refs/heads/master'
         run: hugo --minify
 
-      - name: Deploy site
-        uses: plopcas/hugo-s3-action@v1.4.1
+      - name: Build and deploy site (push to master)
         if: github.ref == 'refs/heads/master' && github.event_name == 'push'
-        env:
-          MINIFY: "true"
+        run: hugo deploy --minify --target techdebug
