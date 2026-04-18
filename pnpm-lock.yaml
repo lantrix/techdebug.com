@@ -1,67 +1,79 @@
-lockfileVersion: '6.1'
+lockfileVersion: '9.0'
 
 settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-dependencies:
-  help:
-    specifier: ^3.0.2
-    version: 3.0.2
+importers:
 
-devDependencies:
-  mkdirp:
-    specifier: ^3.0.1
-    version: 3.0.1
-  yaml-front-matter:
-    specifier: ^4.1.1
-    version: 4.1.1
+  .:
+    dependencies:
+      help:
+        specifier: ^3.0.2
+        version: 3.0.2
+    devDependencies:
+      mkdirp:
+        specifier: ^3.0.1
+        version: 3.0.1
+      yaml-front-matter:
+        specifier: ^4.1.1
+        version: 4.1.1
 
 packages:
 
-  /argparse@1.0.10:
+  argparse@1.0.10:
     resolution: {integrity: sha512-o5Roy6tNG4SL/FOkCAN6RzjiakZS25RLYFrcMttJqbdd8BWrnA+fGz57iN5Pb06pvBGvl5gQ0B48dJlslXvoTg==}
-    dependencies:
-      sprintf-js: 1.0.3
-    dev: true
 
-  /commander@6.2.1:
+  commander@6.2.1:
     resolution: {integrity: sha512-U7VdrJFnJgo4xjrHpTzu0yrHPGImdsmD95ZlgYSEajAn2JKzDhDTPG9kBTefmObL2w/ngeZnilk+OV9CG3d7UA==}
     engines: {node: '>= 6'}
-    dev: true
 
-  /esprima@4.0.1:
+  esprima@4.0.1:
     resolution: {integrity: sha512-eGuFFw7Upda+g4p+QHvnW0RyTX/SVeJBDM/gCtMARO0cLuT2HcEKnTPvhjV6aGeqrCB/sbNop0Kszm0jsaWU4A==}
     engines: {node: '>=4'}
     hasBin: true
-    dev: true
 
-  /help@3.0.2:
+  help@3.0.2:
     resolution: {integrity: sha512-jDd0MU+9xzvOQRC6CIzdjvb+agCvpzQY/Fp11quDnugDO4QQzh134EsLkRQMvFIJBleFkvnXagHFm4MTefkkpA==}
-    dev: false
 
-  /js-yaml@3.14.1:
-    resolution: {integrity: sha512-okMH7OXXJ7YrN9Ok3/SXrnu4iX9yOk+25nqX4imS2npuvTYDmo/QEZoqwZkYaIDk3jVvBOTOIEgEhaLOynBS9g==}
+  js-yaml@3.14.2:
+    resolution: {integrity: sha512-PMSmkqxr106Xa156c2M265Z+FTrPl+oxd/rgOQy2tijQeK5TxQ43psO1ZCwhVOSdnn+RzkzlRz/eY4BgJBYVpg==}
     hasBin: true
-    dependencies:
-      argparse: 1.0.10
-      esprima: 4.0.1
-    dev: true
 
-  /mkdirp@3.0.1:
+  mkdirp@3.0.1:
     resolution: {integrity: sha512-+NsyUUAZDmo6YVHzL/stxSu3t9YS1iljliy3BSDrXJ/dkn1KYdmtZODGGjLcc9XLgVVpH4KshHB8XmZgMhaBXg==}
     engines: {node: '>=10'}
     hasBin: true
-    dev: true
 
-  /sprintf-js@1.0.3:
+  sprintf-js@1.0.3:
     resolution: {integrity: sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==}
-    dev: true
 
-  /yaml-front-matter@4.1.1:
+  yaml-front-matter@4.1.1:
     resolution: {integrity: sha512-ULGbghCLsN8Hs8vfExlqrJIe8Hl2TUjD7/zsIGMP8U+dgRXEsDXk4yydxeZJgdGiimP1XB7zhmhOB4/HyfqOyQ==}
     hasBin: true
+
+snapshots:
+
+  argparse@1.0.10:
+    dependencies:
+      sprintf-js: 1.0.3
+
+  commander@6.2.1: {}
+
+  esprima@4.0.1: {}
+
+  help@3.0.2: {}
+
+  js-yaml@3.14.2:
+    dependencies:
+      argparse: 1.0.10
+      esprima: 4.0.1
+
+  mkdirp@3.0.1: {}
+
+  sprintf-js@1.0.3: {}
+
+  yaml-front-matter@4.1.1:
     dependencies:
       commander: 6.2.1
-      js-yaml: 3.14.1
-    dev: true
+      js-yaml: 3.14.2
