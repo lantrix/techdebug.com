@@ -160,10 +160,9 @@ jobs:
           hugo-version: "0.117.0"
 
       # plopcas/hugo-s3-action runs Hugo inside an old Docker image whose glibc is too old for current Hugo binaries.
-      - name: Build site (PR / manual)
-        if: github.event_name != 'push' || github.ref != 'refs/heads/master'
+      - name: Build site
         run: hugo --minify
 
       - name: Build and deploy site (push to master)
         if: github.ref == 'refs/heads/master' && github.event_name == 'push'
-        run: hugo deploy --minify --target techdebug
+        run: hugo deploy --target techdebug
